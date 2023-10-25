@@ -4,25 +4,63 @@ using UnityEngine;
 
 public class StateController : MonoBehaviour
 {
-    [SerializeField] private IPlayerUnitState defaultState;
+    private BaseUnitState currentState;
 
-    private IPlayerUnitState currentState;
+    public UnitAttackState AttackState { get; private set; }
+    public UnitDefendState DefendState { get; private set; }
+
+   
 
 
     private void Start()
     {
-        ChangeState(defaultState);
+        CreateStates();
+        SetDefaultState();
     }
 
-    public void ChangeState(IPlayerUnitState newState)
+
+    public void ChangeState(BaseUnitState newState)
     {
-        currentState?.ExitState(this);
+        currentState?.ExitState();
         currentState = newState;
         currentState.EnterState(this);
     }
 
+    private void OnEnable()
+    {
+        UnitsStateController.OnAttackButtonPressed += SetAttackState;
+        UnitsStateController.OnDefendButtonPressed += SetDefendState;
+    }
+
+    private void OnDisable()
+    {
+        UnitsStateController.OnAttackButtonPressed -= SetAttackState;
+        UnitsStateController.OnDefendButtonPressed -= SetDefendState;
+    }
+
     private void Update()
     {
-        currentState?.UpdateState(this);
+        currentState?.UpdateState();
+    }
+
+    private void SetDefaultState()
+    {
+        ChangeState(DefendState);
+    }
+
+    private void CreateStates()
+    {
+        AttackState = new();
+        DefendState = new();
+    }
+
+    private void SetAttackState()
+    {
+        ChangeState(AttackState);
+    }
+
+    private void SetDefendState()
+    {
+        ChangeState(DefendState);
     }
 }

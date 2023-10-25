@@ -2,20 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitAttackState : IPlayerUnitState
+public class UnitAttackState : BaseUnitState
 {
-    public void EnterState(StateController unit)
+    public override void EnterState(StateController unit)
     {
-        Debug.Log("Enter attack state!");
+        Debug.Log("Enter Attack State");
     }
-
-    public void ExitState(StateController unit)
+    public override void ExitState()
     {
-        Debug.Log("Exit attack state!");
+        Debug.Log("Exit Attack State");
     }
-
-    public void UpdateState(StateController unit)
+    public override void UpdateState()
     {
-        
+        Debug.Log("Update Attack State");
     }
 }

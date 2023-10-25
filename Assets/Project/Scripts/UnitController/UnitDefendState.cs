@@ -2,20 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitDefendState : IPlayerUnitState
+public class UnitDefendState : BaseUnitState
 {
-    public void EnterState(StateController unit)
+    public override void EnterState(StateController unit)
     {
-        Debug.Log("Enter defending state!");
+        Debug.Log("Enter Defend State");
     }
-
-    public void ExitState(StateController unit)
+    public override void ExitState()
     {
-        Debug.Log("Exit defending state!");
+        Debug.Log("Exit Defend State");
     }
-
-    public void UpdateState(StateController unit)
+    public override void UpdateState()
     {
-        
+        Debug.Log("Update Defend State");
     }
 }
